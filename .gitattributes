@@ -2,6 +2,8 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
+*.asset merge=unityyamlmerge eol=lf
+*.asset eol=lf -text
 
 ###############################################################################
 # Set default behavior for command prompt diff.
