@@ -23,7 +23,10 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     [SerializeField] private float turnSensivility = 1;
     [SerializeField] private float maxSteerAngle = 30;
     [SerializeField] private List<Wheel> wheels;
+    [SerializeField] private Camera carCamera;
     private Rigidbody _rb;
+    [SerializeField] private GameObject player;
+    private bool _playerInside = false;
     private InputSystem_Actions _actions;
     private float _direction;
     private float _steer;
@@ -35,6 +38,10 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         _rb = GetComponent<Rigidbody>();
         _actions = new InputSystem_Actions();
         _actions.Car.SetCallbacks(this);
+
+        carCamera.enabled = false;
+        _actions.Disable();
+
     }
     void Start()
     {
@@ -44,6 +51,7 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     private void OnEnable()
     {
         _actions.Enable();
+
     }
     private void OnDisable()
     {
@@ -51,6 +59,8 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     }
     private void FixedUpdate()
     {
+        if (_playerInside)
+            player.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         foreach (Wheel wheel in wheels)
         {
             wheel.collider.motorTorque = _direction * 600 * maxAcceleration * Time.deltaTime;
@@ -82,5 +92,13 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     public void OnSteer(InputAction.CallbackContext context)
     {
         _steer = context.ReadValue<float>();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            _actions.Enable();
+            _playerInside = true;
+        }
     }
 }
