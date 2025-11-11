@@ -892,12 +892,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8d799610519b6274c8bb35a7fd95f5f5, type: 3}
   m_PrefabInstance: {fileID: 267727442}
   m_PrefabAsset: {fileID: 0}
-
---- !u!1 &76411226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8380157826906577798, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
-  m_PrefabInstance: {fileID: 1957911165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &72542138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,7 +924,12 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.2429924, y: 0.96870315, z: 0.26560405}
-  m_Center: {x: 0.42080766, y: 0.6683425, z: 12.278284
+  m_Center: {x: 0.42080766, y: 0.6683425, z: 12.278284}
+--- !u!1 &76411226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8380157826906577798, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
+  m_PrefabInstance: {fileID: 1957911165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &82938820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2344,12 +2343,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 967b6a4dedfb5424f8c3a056595dab0e, type: 3}
-
---- !u!1 &192323968 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6577237425059042219, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
-  m_PrefabInstance: {fileID: 1957911165}
-
 --- !u!1001 &187729740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2452,7 +2445,11 @@ BoxCollider:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e7645c964a23114bbb7c27ca609dcb2, type: 3}
   m_PrefabInstance: {fileID: 187729740}
-
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &192323968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6577237425059042219, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
+  m_PrefabInstance: {fileID: 1957911165}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &197350225
 PrefabInstance:
@@ -9543,9 +9540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb98da1a53edd04ebfc70bb723f4682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleMover
-  pointA: {x: 0, y: 0, z: 0}
-  pointB: {x: 0, y: 0, z: 0}
-  speed: 2
 --- !u!1001 &854118583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10731,9 +10725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb98da1a53edd04ebfc70bb723f4682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleMover
-  pointA: {x: 0, y: 0, z: 0}
-  pointB: {x: 0, y: 0, z: 0}
-  speed: 2
 --- !u!1001 &946718577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17485,11 +17476,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3203261902030644824, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000747
+      value: 0.20000799
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203261902030644824, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44499993
       objectReference: {fileID: 0}
     - target: {fileID: 3203261902030644824, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.9999952
+      value: -4.0000105
       objectReference: {fileID: 0}
     - target: {fileID: 3203261902030644825, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_Lens.FieldOfView
@@ -17509,11 +17504,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5542111180780342647, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000747
+      value: 0.20000799
+      objectReference: {fileID: 0}
+    - target: {fileID: 5542111180780342647, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44499993
       objectReference: {fileID: 0}
     - target: {fileID: 5542111180780342647, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.9999952
+      value: -4.0000105
       objectReference: {fileID: 0}
     - target: {fileID: 8047161636021232021, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: m_Name
@@ -22549,15 +22548,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.44
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.44
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.44
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23254,13 +23253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2548e624b2ba0d4da389e6d753b7dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
-  rb: {fileID: 1975347345}
-  cameraPivot: {fileID: 1975347348}
-  powerBar: {fileID: 0}
-  angleText: {fileID: 0}
-  maxPower: 20
-  rotationSpeed: 80
-  chargeSpeed: 15
 --- !u!4 &1975347348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8527729748016212629, guid: dc9c860c0461534488018ebede9b5f12, type: 3}
