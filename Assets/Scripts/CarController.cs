@@ -47,12 +47,6 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     {
         anim = GetComponent<Animation>();
     }
-
-    private void OnEnable()
-    {
-        _actions.Enable();
-
-    }
     private void OnDisable()
     {
         _actions.Disable();
