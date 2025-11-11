@@ -30,13 +30,28 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     private InputSystem_Actions _actions;
     private float _direction;
     private float _steer;
+    public Animation anim;
+
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _actions = new InputSystem_Actions();
         _actions.Car.SetCallbacks(this);
+
         carCamera.enabled = false;
         _actions.Disable();
+
+    }
+    void Start()
+    {
+        anim = GetComponent<Animation>();
+    }
+
+    private void OnEnable()
+    {
+        _actions.Enable();
+
     }
     private void OnDisable()
     {
@@ -55,6 +70,18 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
                 wheel.collider.steerAngle = Mathf.Lerp(wheel.collider.steerAngle, _steerAngle, 0.6f);
                 wheel.collider.GetWorldPose(out Vector3 pos, out Quaternion rot);
             }
+        }
+
+        if (_direction != 0)
+        {
+            if (!anim.isPlaying)
+            {
+                anim.Play("wheel");
+            }
+        }
+        else
+        {
+            anim.Stop("wheel");
         }
     }
     public void OnMove(InputAction.CallbackContext context)
