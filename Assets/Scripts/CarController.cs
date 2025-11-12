@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
 {
-    private enum Axel
-    {
-        Front,
-        Rear
-    }
+    private enum Axel { Front, Rear }
+
     [Serializable]
     private struct Wheel
     {
@@ -18,66 +14,59 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         public WheelCollider collider;
         public Axel axel;
     }
+
+    [Header("Settings")]
     [SerializeField] private float maxAcceleration = 30;
-    [SerializeField] private float brakeAcceleration = 50;
     [SerializeField] private float turnSensivility = 1;
     [SerializeField] private float maxSteerAngle = 30;
     [SerializeField] private List<Wheel> wheels;
-    [SerializeField] private Camera carCamera;
+
     private Rigidbody _rb;
-    [SerializeField] private GameObject player;
     private bool _playerInside = false;
     private InputSystem_Actions _actions;
     private float _direction;
     private float _steer;
     public Animation anim;
 
-
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _actions = new InputSystem_Actions();
         _actions.Car.SetCallbacks(this);
-
-        carCamera.enabled = false;
-        _actions.Disable();
-
     }
+
     void Start()
     {
         anim = GetComponent<Animation>();
     }
-    private void OnDisable()
-    {
-        _actions.Disable();
-    }
+
     private void FixedUpdate()
     {
-        if (_playerInside)
-            player.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        if (!_playerInside) return;
+
         foreach (Wheel wheel in wheels)
         {
             wheel.collider.motorTorque = _direction * 600 * maxAcceleration * Time.deltaTime;
-            if(wheel.axel == Axel.Front)
+
+            if (wheel.axel == Axel.Front)
             {
-                var _steerAngle = _steer * turnSensivility * maxSteerAngle;
+                float _steerAngle = _steer * turnSensivility * maxSteerAngle;
                 wheel.collider.steerAngle = Mathf.Lerp(wheel.collider.steerAngle, _steerAngle, 0.6f);
-                wheel.collider.GetWorldPose(out Vector3 pos, out Quaternion rot);
             }
         }
 
+        // Wheel animation logic
         if (_direction != 0)
         {
             if (!anim.isPlaying)
-            {
                 anim.Play("wheel");
-            }
         }
         else
         {
             anim.Stop("wheel");
         }
     }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         _direction = context.ReadValue<float>();
@@ -87,12 +76,18 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     {
         _steer = context.ReadValue<float>();
     }
-    private void OnCollisionEnter(Collision collision)
+
+    public void EnableDriving()
     {
-        if (collision.collider.CompareTag("Player"))
-        {
-            _actions.Enable();
-            _playerInside = true;
-        }
+        _playerInside = true;
+        _actions.Car.Enable();
+    }
+
+    public void DisableDriving()
+    {
+        _playerInside = false;
+        _actions.Car.Disable();
+        _direction = 0f;
+        _steer = 0f;
     }
 }
