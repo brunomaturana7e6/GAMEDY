@@ -123,7 +123,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -1169,6 +1169,34 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""CarEnter"",
+            ""id"": ""0f91fb77-95cc-4a5c-ae8c-6f4993d676ee"",
+            ""actions"": [
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""383498a3-c197-4904-b69b-4b7746f89cb1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""38c9bce3-8c7c-41a5-838a-5b9f39759e95"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1261,6 +1289,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
         m_Car_Move = m_Car.FindAction("Move", throwIfNotFound: true);
         m_Car_Steer = m_Car.FindAction("Steer", throwIfNotFound: true);
+        // CarEnter
+        m_CarEnter = asset.FindActionMap("CarEnter", throwIfNotFound: true);
+        m_CarEnter_Enter = m_CarEnter.FindAction("Enter", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1268,6 +1299,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Car.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Car.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CarEnter.enabled, "This will cause a leak and performance issues, InputSystem_Actions.CarEnter.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1825,6 +1857,102 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="CarActions" /> instance referencing this action map.
     /// </summary>
     public CarActions @Car => new CarActions(this);
+
+    // CarEnter
+    private readonly InputActionMap m_CarEnter;
+    private List<ICarEnterActions> m_CarEnterActionsCallbackInterfaces = new List<ICarEnterActions>();
+    private readonly InputAction m_CarEnter_Enter;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "CarEnter".
+    /// </summary>
+    public struct CarEnterActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public CarEnterActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "CarEnter/Enter".
+        /// </summary>
+        public InputAction @Enter => m_Wrapper.m_CarEnter_Enter;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_CarEnter; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="CarEnterActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(CarEnterActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="CarEnterActions" />
+        public void AddCallbacks(ICarEnterActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CarEnterActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CarEnterActionsCallbackInterfaces.Add(instance);
+            @Enter.started += instance.OnEnter;
+            @Enter.performed += instance.OnEnter;
+            @Enter.canceled += instance.OnEnter;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="CarEnterActions" />
+        private void UnregisterCallbacks(ICarEnterActions instance)
+        {
+            @Enter.started -= instance.OnEnter;
+            @Enter.performed -= instance.OnEnter;
+            @Enter.canceled -= instance.OnEnter;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CarEnterActions.UnregisterCallbacks(ICarEnterActions)" />.
+        /// </summary>
+        /// <seealso cref="CarEnterActions.UnregisterCallbacks(ICarEnterActions)" />
+        public void RemoveCallbacks(ICarEnterActions instance)
+        {
+            if (m_Wrapper.m_CarEnterActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="CarEnterActions.AddCallbacks(ICarEnterActions)" />
+        /// <seealso cref="CarEnterActions.RemoveCallbacks(ICarEnterActions)" />
+        /// <seealso cref="CarEnterActions.UnregisterCallbacks(ICarEnterActions)" />
+        public void SetCallbacks(ICarEnterActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CarEnterActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CarEnterActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="CarEnterActions" /> instance referencing this action map.
+    /// </summary>
+    public CarEnterActions @CarEnter => new CarEnterActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -2060,5 +2188,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSteer(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CarEnter" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="CarEnterActions.AddCallbacks(ICarEnterActions)" />
+    /// <seealso cref="CarEnterActions.RemoveCallbacks(ICarEnterActions)" />
+    public interface ICarEnterActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Enter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEnter(InputAction.CallbackContext context);
     }
 }
