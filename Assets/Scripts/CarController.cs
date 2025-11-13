@@ -26,18 +26,22 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     private InputSystem_Actions _actions;
     private float _direction;
     private float _steer;
-    public Animation anim;
+    public Animation _anim;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _actions = new InputSystem_Actions();
         _actions.Car.SetCallbacks(this);
+        _anim = GetComponent<Animation>();
     }
-
-    void Start()
+    private void OnEnable()
     {
-        anim = GetComponent<Animation>();
+        _actions.Enable();
+    }
+    private void OnDisable()
+    {
+        _actions.Disable();
     }
 
     private void FixedUpdate()
@@ -58,12 +62,12 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         // Wheel animation logic
         if (_direction != 0)
         {
-            if (!anim.isPlaying)
-                anim.Play("wheel");
+            if (!_anim.isPlaying)
+                _anim.Play("wheel");
         }
         else
         {
-            anim.Stop("wheel");
+            _anim.Stop("wheel");
         }
     }
 
@@ -80,13 +84,13 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
     public void EnableDriving()
     {
         _playerInside = true;
-        _actions.Car.Enable();
+        _actions.Enable();
     }
 
     public void DisableDriving()
     {
         _playerInside = false;
-        _actions.Car.Disable();
+        _actions.Disable();
         _direction = 0f;
         _steer = 0f;
     }

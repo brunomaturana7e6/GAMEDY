@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class EnterCar : MonoBehaviour
+public class EnterCar : MonoBehaviour, InputSystem_Actions.ICarEnterActions
 {
     [Header("References")]
     [SerializeField] private GameObject player;
@@ -16,20 +16,21 @@ public class EnterCar : MonoBehaviour
     private bool canEnter = false;
     private bool inCar = false;
 
-    private void Update()
-    {
-        if (canEnter && Input.GetKeyDown(KeyCode.E) && !inCar)
-        {
-            EnterVehicle();
-            Debug.Log("Entered the vehicle.");
-        }
-        else if (inCar && Input.GetKeyDown(KeyCode.E))
-        {
-            ExitVehicle();
-            Debug.Log("Exited the vehicle.");
-        }
-    }
+    private InputSystem_Actions _actions;
 
+    private void Awake()
+    {
+        _actions = new InputSystem_Actions();
+        _actions.CarEnter.SetCallbacks(this);
+    }
+    private void OnEnable()
+    {
+        _actions.Enable();
+    }
+    private void OnDisable()
+    {
+        _actions.Disable();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Car"))
@@ -74,5 +75,19 @@ public class EnterCar : MonoBehaviour
 
         playerCam.Priority = 10;
         carCam.Priority = 5;
+    }
+
+    public void OnEnter(InputAction.CallbackContext context)
+    {
+        if (canEnter && !inCar)
+        {
+            EnterVehicle();
+            Debug.Log("Entered the vehicle.");
+        }
+        else if (inCar)
+        {
+            ExitVehicle();
+            Debug.Log("Exited the vehicle.");
+        }
     }
 }
