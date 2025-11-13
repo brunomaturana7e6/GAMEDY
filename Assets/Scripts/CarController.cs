@@ -51,7 +51,6 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         foreach (Wheel wheel in wheels)
         {
             wheel.collider.motorTorque = _direction * 600 * maxAcceleration * Time.deltaTime;
-
             if (wheel.axel == Axel.Front)
             {
                 float _steerAngle = _steer * turnSensivility * maxSteerAngle;
@@ -60,6 +59,7 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         }
 
         // Wheel animation logic
+        /*
         if (_direction != 0)
         {
             if (!_anim.isPlaying)
@@ -69,6 +69,7 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         {
             _anim.Stop("wheel");
         }
+        */
     }
 
     public void OnMove(InputAction.CallbackContext context)
