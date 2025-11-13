@@ -14,7 +14,7 @@ public class EnterCar : MonoBehaviour, InputSystem_Actions.ICarEnterActions
     [SerializeField] private CinemachineVirtualCamera carCam;
 
     private bool canEnter = false;
-    private bool inCar = false;
+    public bool inCar = false;
 
     private InputSystem_Actions _actions;
 

@@ -1860,37 +1860,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0831f60632baf4492b92858d493b29, type: 3}
---- !u!1 &103787438
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 103787439}
-  m_Layer: 0
-  m_Name: PlayerHiddenLocation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &103787439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103787438}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.3, y: 13.3, z: 285.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &111327299
 GameObject:
   m_ObjectHideFlags: 0
@@ -29535,6 +29504,7 @@ MonoBehaviour:
   exitPoint: {fileID: 690507083}
   playerCam: {fileID: 216861}
   carCam: {fileID: 1766843429}
+  inCar: 0
 --- !u!114 &1823730424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31105,6 +31075,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniMapBehaviour
   _player: {fileID: 1934247792}
+  car: {fileID: 1957911173}
+  enterCar: {fileID: 1823730416}
 --- !u!1001 &1921972758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32315,10 +32287,10 @@ MonoBehaviour:
     axel: 0
   - wheel: {fileID: 691730662}
     collider: {fileID: 1370889816}
-    axel: 0
+    axel: 1
   - wheel: {fileID: 192323968}
     collider: {fileID: 111327300}
-    axel: 0
+    axel: 1
   - wheel: {fileID: 2146492575}
     collider: {fileID: 217766926}
     axel: 0
@@ -32332,8 +32304,8 @@ Rigidbody:
   m_GameObject: {fileID: 1957911166}
   serializedVersion: 5
   m_Mass: 250
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.15
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -35449,7 +35421,6 @@ SceneRoots:
   - {fileID: 569891051}
   - {fileID: 553233801}
   - {fileID: 50965666}
-  - {fileID: 103787439}
   - {fileID: 1403150815}
   - {fileID: 904944735}
   - {fileID: 884720414}
