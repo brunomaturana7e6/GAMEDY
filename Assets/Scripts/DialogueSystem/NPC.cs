@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 
 public class NPC : MonoBehaviour, Interactable
 {
@@ -17,9 +16,11 @@ public class NPC : MonoBehaviour, Interactable
         return !isDialogueActive;
     }
 
+    // FIXED: start dialogue when not active, advance when active
     public void Interact()
     {
-        if(dialogueData == null || (!isDialogueActive))
+        // If no data or no UI assigned, do nothing (safe guard)
+        if (dialogueData == null || dialoguePanel == null || dialogueText == null || nameText == null)
             return;
 
         if (isDialogueActive)
@@ -34,6 +35,9 @@ public class NPC : MonoBehaviour, Interactable
 
     void StartDialogue()
     {
+        if (dialogueData == null || dialogueData.dialogueLines == null || dialogueData.dialogueLines.Length == 0)
+            return;
+
         isDialogueActive = true;
         dialogueIndex = 0;
 
@@ -52,10 +56,13 @@ public class NPC : MonoBehaviour, Interactable
             StopAllCoroutines();
             dialogueText.SetText(dialogueData.dialogueLines[dialogueIndex]);
             isTyping = false;
+            return;
         }
-        else if (++dialogueIndex < dialogueData.dialogueLines.Length)
+
+        // Move to next line if possible
+        dialogueIndex++;
+        if (dialogueIndex < dialogueData.dialogueLines.Length)
         {
-            // If another line, type next line
             StartCoroutine(TypeLine());
         }
         else
@@ -68,14 +75,20 @@ public class NPC : MonoBehaviour, Interactable
     {
         isTyping = true;
         dialogueText.SetText("");
-        foreach (char letter in dialogueData.dialogueLines[dialogueIndex])
+        string line = dialogueData.dialogueLines[dialogueIndex];
+
+        foreach (char letter in line)
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(dialogueData.typingSpeed);
         }
+
         isTyping = false;
 
-        if (dialogueData.autoProgressLines.Length > dialogueIndex && dialogueData.autoProgressLines[dialogueIndex])
+        // Auto progress if configured
+        if (dialogueData.autoProgressLines != null
+            && dialogueIndex < dialogueData.autoProgressLines.Length
+            && dialogueData.autoProgressLines[dialogueIndex])
         {
             yield return new WaitForSeconds(dialogueData.autoProgressDelay);
             NextLine();
@@ -88,5 +101,5 @@ public class NPC : MonoBehaviour, Interactable
         isDialogueActive = false;
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
-    }   
+    }
 }

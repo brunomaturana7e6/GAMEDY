@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
+public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions, Interactable
 {
     private enum Axel { Front, Rear }
 
@@ -94,5 +94,28 @@ public class CarController : MonoBehaviour, InputSystem_Actions.ICarActions
         _actions.Disable();
         _direction = 0f;
         _steer = 0f;
+    }
+
+    // ----------------------------
+    // INTERACTABLE IMPLEMENTATION
+    // ----------------------------
+
+    public void Interact()
+    {
+        // Toggle car entry/exit when interacting
+        if (!_playerInside)
+        {
+            EnableDriving();
+        }
+        else
+        {
+            DisableDriving();
+        }
+    }
+
+    public bool CanInteract()
+    {
+        // Always interactable when player is near
+        return true;
     }
 }

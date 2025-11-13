@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311c30acaa8efa640b3409c51d2f5317, type: 3}
+  m_Name: Coach
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Coach
+  dialogueLines:
+  - Hello there, I'm the Gamedy Football Coach.
+  - I have a challenge for you. Let's see how you do.
+  - The main objective is simple, you need to score the ball.
+  - But you might be asking yourself agaisnt who are you playing...
+  - Well, you're playing against yourself. And you do not only need skill, but knowledge
+    as well.
+  - In this game, you'll have a question and two answers.
+  - Each answer will be in one of the goals, but only one of them will be correct.
+  - To continue, score in the right goal. Which means to guess the right answer to
+    the question.
+  - As you progress, I will also test your soccer skills by adding obstacles, so
+    get ready for a real challenge.
+  typingSpeed: 0.05
+  autoProgressLines: 010101010101010101
+  autoProgressDelay: 1.5
