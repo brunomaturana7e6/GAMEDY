@@ -24,6 +24,7 @@ public class FootballManager : MonoBehaviour
     [Header("Questions")]
     public List<FootballQuestion> questions = new List<FootballQuestion>();
     private FootballQuestion currentQuestion;
+    private List<FootballQuestion> remainingQuestions;
 
     [Header("Obstacles")]
     [SerializeField] private GameObject[] obstacleGroups;
@@ -49,6 +50,8 @@ public class FootballManager : MonoBehaviour
 
     public int CorrectAnswerIndex => currentQuestion.correctIndex;
 
+    public bool GameCompleted { get; private set; } = false;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -61,6 +64,8 @@ public class FootballManager : MonoBehaviour
 
     private void Start()
     {
+        remainingQuestions = new List<FootballQuestion>(questions);
+
         // Destroy any existing ball in the scene
         GameObject existingBall = GameObject.FindGameObjectWithTag("Ball");
         if (existingBall != null)
@@ -111,37 +116,37 @@ public class FootballManager : MonoBehaviour
 
     public void ShowNewQuestion()
     {
-        if (IsQuestionActive)
-            return; // Don't show a new question if one is already active
-
-        if (questions.Count == 0)
+        if (GameCompleted)
         {
-            Debug.LogError("No questions in list!");
+            Debug.Log("Game finished. No more questions.");
             return;
         }
 
-        int index = Random.Range(0, questions.Count);
-        currentQuestion = questions[index];
+        if (IsQuestionActive)
+            return; // Don't show a new question if one is already active
+
+        // Refill pool if empty (all questions used in this run)
+        if (remainingQuestions.Count == 0)
+            remainingQuestions = new List<FootballQuestion>(questions);
+
+        int index = Random.Range(0, remainingQuestions.Count);
+        currentQuestion = remainingQuestions[index];
+
+        // Remove question so it won't repeat this round
+        remainingQuestions.RemoveAt(index);
 
         questionText.text = currentQuestion.question;
         answerLeftText.text = currentQuestion.answerLeft;
         answerRightText.text = currentQuestion.answerRight;
 
-        // --- FIX: dynamically tell each goal if it's correct ---
-        if (currentQuestion.correctIndex == 0)
-        {
-            leftGoal.SetCorrectAnswer(true);   // left goal = correct
-            rightGoal.SetCorrectAnswer(false); // right goal = wrong
-        }
-        else
-        {
-            leftGoal.SetCorrectAnswer(false);  // left goal = wrong
-            rightGoal.SetCorrectAnswer(true);  // right goal = correct
-        }
+        // Assign correct side
+        leftGoal.SetCorrectAnswer(currentQuestion.correctIndex == 0);
+        rightGoal.SetCorrectAnswer(currentQuestion.correctIndex == 1);
 
         questionText.gameObject.SetActive(true);
         IsQuestionActive = true; // Mark question as active
-        Debug.Log($"New question shown. Correct answer index: {currentQuestion.correctIndex}");
+
+        Debug.Log("New question shown. Remaining questions: " + remainingQuestions.Count);
     }
 
     // ---------------------- GOAL RESULT ----------------------
@@ -169,6 +174,15 @@ public class FootballManager : MonoBehaviour
         resultText.gameObject.SetActive(false);
 
         currentLevel++;
+
+        // ✔️ If finished all levels
+        if (currentLevel >= obstacleGroups.Length)
+        {
+            GameCompleted = true;
+            Debug.Log("All levels completed! No more questions will appear.");
+            yield break; // Do NOT spawn a new ball, do NOT load levels
+        }
+
         LoadLevel(currentLevel);
         SpawnBall();
         Debug.Log("Advanced to next level.");
@@ -183,9 +197,14 @@ public class FootballManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         resultText.gameObject.SetActive(false);
 
+        // Reset to level 0
         LoadLevel(0);
+
+        // Reset question pool (NEW)
+        remainingQuestions = new List<FootballQuestion>(questions);
+
         SpawnBall();
-        Debug.Log("Reset to level 0.");
+        Debug.Log("Reset to level 0. Question pool refilled.");
     }
 
     private void OnDisable()

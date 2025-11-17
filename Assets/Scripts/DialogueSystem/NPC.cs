@@ -11,6 +11,9 @@ public class NPC : MonoBehaviour, Interactable
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
 
+    [Header("Alternate Dialogue (after finishing minigame)")]
+    public NPCDialogue completedDialogue;
+
     public bool CanInteract()
     {
         return !isDialogueActive;
@@ -19,6 +22,15 @@ public class NPC : MonoBehaviour, Interactable
     // FIXED: start dialogue when not active, advance when active
     public void Interact()
     {
+        if (FootballManager.Instance != null && FootballManager.Instance.GameCompleted)
+        {
+            // switch to completed dialogue
+            if (completedDialogue != null)
+            {
+                dialogueData = completedDialogue;
+            }
+        }
+
         // If no data or no UI assigned, do nothing (safe guard)
         if (dialogueData == null || dialoguePanel == null || dialogueText == null || nameText == null)
             return;

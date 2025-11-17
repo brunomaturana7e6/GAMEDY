@@ -18329,6 +18329,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 972900184}
   dialogueText: {fileID: 1962062691}
   nameText: {fileID: 1758304078}
+  completedDialogue: {fileID: 11400000, guid: db7d97cc470699540adf1f5daad4e4a0, type: 2}
 --- !u!1 &898436607
 GameObject:
   m_ObjectHideFlags: 0
