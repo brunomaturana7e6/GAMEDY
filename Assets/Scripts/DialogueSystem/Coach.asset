@@ -26,6 +26,8 @@ MonoBehaviour:
     the question.
   - As you progress, I will also test your soccer skills by adding obstacles, so
     get ready for a real challenge.
+  - Oh, I almost forgot! If you lose your ball, you can press "F" at any time and
+    I will bring you a new one. Let's begin!
   typingSpeed: 0.05
-  autoProgressLines: 010101010101010101
+  autoProgressLines: 01010101010101010101
   autoProgressDelay: 1.5
