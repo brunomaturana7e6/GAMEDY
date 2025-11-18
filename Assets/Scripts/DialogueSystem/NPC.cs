@@ -1,6 +1,7 @@
-using UnityEngine;
-using TMPro;
+using StarterAssets;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class NPC : MonoBehaviour, Interactable
 {
@@ -11,8 +12,15 @@ public class NPC : MonoBehaviour, Interactable
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
 
+    private ThirdPersonController playerController;
+
     [Header("Alternate Dialogue (after finishing minigame)")]
     public NPCDialogue completedDialogue;
+
+    [Header("Dialogue Camera")]
+    public Cinemachine.CinemachineVirtualCamera dialogueCam;
+    public Transform dialogueSpot; // where the player should stand during dialogue
+
 
     public bool CanInteract()
     {
@@ -53,9 +61,22 @@ public class NPC : MonoBehaviour, Interactable
         isDialogueActive = true;
         dialogueIndex = 0;
 
-        nameText.SetText(dialogueData.name);
+        nameText.SetText(dialogueData.npcName);
 
         dialoguePanel.SetActive(true);
+
+        // Disable player movement
+        playerController = Object.FindAnyObjectByType<ThirdPersonController>();
+        if (playerController != null)
+            playerController.enabled = false;
+
+        // Switch camera
+        if (dialogueCam != null)
+            dialogueCam.Priority = 20; // higher than third-person cam
+
+        // Teleport player to dialogue spot
+        if (dialogueSpot != null)
+            playerController.transform.SetPositionAndRotation(dialogueSpot.position, dialogueSpot.rotation);
 
         StartCoroutine(TypeLine());
     }
@@ -113,5 +134,13 @@ public class NPC : MonoBehaviour, Interactable
         isDialogueActive = false;
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
+
+        // Re-enable player movement
+        if (playerController != null)
+            playerController.enabled = true;
+
+        // Return camera to third-person
+        if (dialogueCam != null)
+            dialogueCam.Priority = 0; // lower than main cam
     }
 }
