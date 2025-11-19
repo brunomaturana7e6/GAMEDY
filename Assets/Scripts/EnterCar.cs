@@ -33,14 +33,14 @@ public class EnterCar : MonoBehaviour, InputSystem_Actions.ICarEnterActions
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Car"))
+        if (other.CompareTag("Player"))
             canEnter = true;
         Debug.Log("Player is near the vehicle.");
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Car"))
+        if (other.CompareTag("Player"))
             canEnter = false;
         Debug.Log("Player left the vehicle area.");
     }
@@ -58,6 +58,8 @@ public class EnterCar : MonoBehaviour, InputSystem_Actions.ICarEnterActions
 
         playerCam.Priority = 5;
         carCam.Priority = 10;
+        Debug.Log(playerCam.Priority);
+        Debug.Log(carCam.Priority);
     }
 
     private void ExitVehicle()

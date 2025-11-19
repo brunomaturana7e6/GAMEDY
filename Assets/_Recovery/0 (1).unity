@@ -32812,9 +32812,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 974238578668270704, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1823730433}
-    - targetCorrespondingSourceObject: {fileID: 974238578668270704, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1823730441}
   m_SourcePrefab: {fileID: 100100000, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
 --- !u!1001 &1511976623
 PrefabInstance:
@@ -36342,7 +36339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1673680112}
   m_Layer: 0
-  m_Name: CarExitPoint
+  m_Name: DeportivoExitPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39248,24 +39245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionDetector
   interactionText: {fileID: 2095979868}
---- !u!114 &1823730441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823730408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84284400a3e43a048a98763f5fb5b8bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnterCar
-  player: {fileID: 1823730408}
-  carController: {fileID: 1957911169}
-  exitPoint: {fileID: 690507083}
-  playerCam: {fileID: 216861}
-  carCam: {fileID: 1766843429}
-  inCar: 0
 --- !u!1001 &1825929485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41459,7 +41438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MiniMapBehaviour
   _player: {fileID: 1934247792}
   car: {fileID: 1957911173}
-  enterCar: {fileID: 0}
+  enterCar: {fileID: 1957911181}
+  enterDeportivo: {fileID: 1958247331}
 --- !u!1001 &1921972758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42621,6 +42601,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1957911180}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1957911181}
   m_SourcePrefab: {fileID: 100100000, guid: c1255c2fd9d7a3e4e8e1b1fd99ed2a86, type: 3}
 --- !u!1 &1957911166 stripped
 GameObject:
@@ -42769,6 +42752,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.42727, y: 4.282868, z: 18.172836}
   m_Center: {x: -2.1690161, y: 2.0887678, z: -4.6569204}
+--- !u!114 &1957911181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957911166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84284400a3e43a048a98763f5fb5b8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnterCar
+  player: {fileID: 1823730408}
+  carController: {fileID: 1957911169}
+  exitPoint: {fileID: 690507083}
+  playerCam: {fileID: 216861}
+  carCam: {fileID: 1766843429}
+  inCar: 0
 --- !u!1001 &1958247314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42891,6 +42892,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0905de7306b2f8a4aa095f9125384ba8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1958247329}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0905de7306b2f8a4aa095f9125384ba8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1958247331}
   m_SourcePrefab: {fileID: 100100000, guid: 0905de7306b2f8a4aa095f9125384ba8, type: 3}
 --- !u!1 &1958247315 stripped
 GameObject:
@@ -43015,6 +43019,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0453105, y: 1.3026811, z: 4.747623}
   m_Center: {x: 2.1624494, y: 0.19674271, z: -0.086827524}
+--- !u!114 &1958247331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958247315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84284400a3e43a048a98763f5fb5b8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnterCar
+  player: {fileID: 1823730408}
+  carController: {fileID: 1958247329}
+  exitPoint: {fileID: 1673680112}
+  playerCam: {fileID: 216861}
+  carCam: {fileID: 1728234509}
+  inCar: 0
 --- !u!1001 &1959240892
 PrefabInstance:
   m_ObjectHideFlags: 0

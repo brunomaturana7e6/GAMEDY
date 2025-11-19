@@ -5,6 +5,7 @@ public class MiniMapBehaviour : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private Transform car;
     [SerializeField] private EnterCar enterCar;
+    [SerializeField] private EnterCar enterDeportivo;
     private void LateUpdate()
     {
         Vector3 newPosition;
